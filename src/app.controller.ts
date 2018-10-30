@@ -22,8 +22,6 @@ export class AppController {
   }
   @Get('files')
     getFiles() {
-      // const dirPath = path.join(__dirname, '/temp');
-      // console.log(process.cwd());
-      return 'Zawartosc folderu to: ' + fs.readdirSync('src/temp');
+    return 'Zawartosc folderu to: ' + fs.readdirSync('src/temp');
   }
 }
