@@ -26,4 +26,8 @@ export class MovieService {
   async delete(movieDto: CreateMovieDto) {
     return await this.movieModel.deleteOne({ Title: movieDto.title });
   }
+
+  // async findByMovieTitle () {
+  //   return await this.movieModel.
+  // }
 }

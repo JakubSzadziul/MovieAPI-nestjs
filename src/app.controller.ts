@@ -2,7 +2,7 @@ import { Get, Controller, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 const fs = require('fs'),
   path = require('path'),
-  filePath = path.join(__dirname, 'temp/jakub1.txt');
+  filePath = path.join(__dirname, 'files/file1.txt');
 
 @Controller()
 export class AppController {
