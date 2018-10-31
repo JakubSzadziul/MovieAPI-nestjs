@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import {HttpException, HttpStatus, Inject, Injectable} from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import fetch from 'node-fetch';
 
@@ -10,8 +10,12 @@ export class MovieService {
 
   async saveToDb(createMovieDto: CreateMovieDto) {
     const movieData = await this.getDataFromExtAPI(createMovieDto);
-    const createdMovie = new this.movieModel(movieData);
-    return await createdMovie.save();
+    if (movieData.Response == 'True') {
+        const createdMovie = new this.movieModel(movieData);
+        return await createdMovie.save();
+    } else {
+        throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
   }
 
   async getDataFromExtAPI(movieDto: CreateMovieDto) {
@@ -27,7 +31,11 @@ export class MovieService {
     return await this.movieModel.deleteOne({ Title: movieDto.title });
   }
 
-  // async findByMovieTitle () {
-  //   return await this.movieModel.
-  // }
+  async findByMovieTitle (movieDto: CreateMovieDto) {
+    return await this.movieModel.find({ Title: movieDto.title })
+  }
+
+  async findByMovieTitleParam (title: string) {
+    return await this.movieModel.find({ Title: title })
+  }
 }

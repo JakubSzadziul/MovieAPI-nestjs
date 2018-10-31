@@ -6,6 +6,6 @@ export class AppService {
     return 'Hello World!';
   }
   yolo(): string {
-    return 'docker TEST';
+    return 'sprawdzam czy docker zresetuje dane po przebudowaniu image';
   }
 }

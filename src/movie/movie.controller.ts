@@ -1,4 +1,4 @@
-import { Get, Controller, Body, Post } from '@nestjs/common';
+import {Get, Controller, Body, Post, Param, Query} from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 
@@ -9,7 +9,7 @@ export class MovieController {
 
   @Post()
   async saveMovie(@Body() createMovieDto: CreateMovieDto) {
-    this.movieService.saveToDb(createMovieDto);
+    return this.movieService.saveToDb(createMovieDto);
   }
 
   @Get('getall')
@@ -20,5 +20,15 @@ export class MovieController {
   @Post('delete')
   async delete(@Body() createMovieDto: CreateMovieDto) {
     return this.movieService.delete(createMovieDto);
+  }
+
+  @Post('find')
+  async find(@Body() createMovieDto: CreateMovieDto) {
+    return this.movieService.findByMovieTitle(createMovieDto)
+  }
+
+  @Get()
+  async findParameter(@Query() query){
+      return this.movieService.findByMovieTitleParam(query.title.toString())
   }
 }
